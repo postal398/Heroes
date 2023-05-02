@@ -4,7 +4,7 @@ import com.example.superheroes.R
 import data.Hero
 
 object HeroesRepository {
-    val heroes = listOf(
+  public val heroes = listOf(
         Hero(
             nameRes = R.string.hero1,
             descriptionRes = R.string.description1,
