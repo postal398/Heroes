@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -24,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -36,44 +39,36 @@ class HeroesScreen {
 fun HeroesScreen(hero : Hero) {
     Card(elevation = CardDefaults.cardElevation(2.dp),
         modifier = Modifier
-            .clip(RoundedCornerShape(16.dp))
-            .fillMaxWidth()
-            .padding(8.dp)
-            .height(88.dp)
+            .padding(8.dp, 15.dp, 8.dp)
     ) {
         Row (
             Modifier
                 .padding(16.dp)
-                .sizeIn(minHeight = 72.dp),
-            verticalAlignment = Alignment.CenterVertically
-
+                .height(72.dp)
+                .fillMaxWidth()
+                //.weight(1f)
                 ) {//row for text on the left and image on the right
-        HeroInfo(hero.nameRes, hero.descriptionRes)
-        Spacer(Modifier.size(16.dp))
-        HeroIcon(hero.imageRes)
+        HeroInfo(hero.nameRes, hero.descriptionRes, Modifier.weight(1f))
+        Spacer(Modifier.width(16.dp))
+        HeroIcon(hero.imageRes, Modifier.requiredSize(72.dp))
         }
     }
 }
 
 @Composable
 fun HeroIcon (@DrawableRes heroIcon : Int, modifier: Modifier = Modifier) {
-    Image(
+    Image(modifier = Modifier,
         painter = painterResource(heroIcon),
         contentDescription = null,
-        Modifier
-            .size(72.dp, 72.dp)
-            .clip(RoundedCornerShape(8.dp))
-            //.padding(8.dp)
-            .fillMaxSize()
-            .aspectRatio(1f)
+        alignment = Alignment.CenterEnd,
+        //contentScale = ContentScale.FillWidth
     )
 }
 
 @Composable
 fun HeroInfo(@StringRes name : Int,@StringRes descr : Int, modifier: Modifier = Modifier) {
-    Column(
-
-    ) {
+    Column(modifier = modifier)
+    {
         Text(stringResource(id = name),
             style = MaterialTheme.typography.displaySmall
         )
