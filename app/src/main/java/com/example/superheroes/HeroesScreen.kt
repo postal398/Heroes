@@ -3,6 +3,7 @@ package com.example.superheroes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.layout.Row
@@ -36,10 +37,10 @@ class HeroesScreen {
 }
 
 @Composable
-fun HeroesScreen(hero : Hero) {
+fun HeroesScreen(hero : Hero, modifier: Modifier) {
     Card(elevation = CardDefaults.cardElevation(2.dp),
         modifier = Modifier
-            .padding(8.dp, 15.dp, 8.dp)
+            .padding(16.dp, 8.dp)
     ) {
         Row (
             Modifier
@@ -57,7 +58,7 @@ fun HeroesScreen(hero : Hero) {
 
 @Composable
 fun HeroIcon (@DrawableRes heroIcon : Int, modifier: Modifier = Modifier) {
-    Image(modifier = Modifier,
+    Image(modifier = Modifier.clip(RoundedCornerShape(8.dp)),
         painter = painterResource(heroIcon),
         contentDescription = null,
         alignment = Alignment.CenterEnd,
@@ -67,7 +68,7 @@ fun HeroIcon (@DrawableRes heroIcon : Int, modifier: Modifier = Modifier) {
 
 @Composable
 fun HeroInfo(@StringRes name : Int,@StringRes descr : Int, modifier: Modifier = Modifier) {
-    Column(modifier = modifier)
+    Column(modifier = modifier, verticalArrangement = Arrangement.Center)
     {
         Text(stringResource(id = name),
             style = MaterialTheme.typography.displaySmall
